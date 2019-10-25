@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ujiuye.mapper.EmpMapper" >
+  <resultMap id="BaseResultMap" type="com.ujiuye.bean.Emp" >
+    <id column="eid" property="eid" jdbcType="INTEGER" />
+    <result column="ename" property="ename" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="hirdate" property="hirdate" jdbcType="DATE" />
+    <result column="deptno" property="deptno" jdbcType="INTEGER" />
+  </resultMap>
+
+  <insert id="addEmp" parameterType="com.ujiuye.bean.Emp">
+    insert into emp (ename,address,hirdate,deptno) values (#{ename},#{address},#{hirdate},#{deptno})
+  </insert>
+
+  <resultMap id="newEmp" type="com.ujiuye.bean.Emp" extends="BaseResultMap">
+    <association property="dept" column="deptno" javaType="com.ujiuye.bean.Dept" select="com.ujiuye.mapper.DeptMapper.findDeptByDeptno"></association>
+  </resultMap>
+
+  <select id="findEmpList" resultMap="newEmp">
+    select * from emp
+  </select>
+
+  <delete id="deleteEmpByEid">
+    delete from emp where eid = #{eid}
+  </delete>
+
+  <select id="findEmpByEid" resultMap="BaseResultMap">
+    select * from emp where eid = #{eid}
+  </select>
+
+  <update id="updateEmp" parameterType="com.ujiuye.bean.Emp">
+    update emp set ename = #{ename},address = #{address},hirdate = #{hirdate},deptno = #{deptno} where eid = #{eid}
+  </update>
+
+</mapper>

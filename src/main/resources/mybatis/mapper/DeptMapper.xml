@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ujiuye.mapper.DeptMapper" >
+  <resultMap id="BaseResultMap" type="com.ujiuye.bean.Dept" >
+    <result column="deptno" property="deptno" jdbcType="INTEGER" />
+    <result column="dname" property="dname" jdbcType="VARCHAR" />
+    <result column="local" property="local" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <select id="findDeptList" resultMap="BaseResultMap">
+    select * from dept
+  </select>
+
+  <select id="findDeptByDeptno" resultMap="BaseResultMap">
+    select * from dept where deptno = #{deptno}
+  </select>
+
+</mapper>
